@@ -1,6 +1,6 @@
 'use strict';
 
-// Last time updated: 2021-03-09 3:20:22 AM UTC
+// Last time updated: 2022-02-06 9:11:15 AM UTC
 
 // ________________
 // RecordRTC v5.6.2
@@ -6008,13 +6008,11 @@ function WebAssemblyRecorder(stream, config) {
                         }
 
                         ctx.drawImage(video, 0, 0);
-                        if (controller._controlledReadableStream.state !== 'closed') {
-                            try {
-                                controller.enqueue(
-                                    ctx.getImageData(0, 0, config.width, config.height)
-                                );
-                            } catch (e) {}
-                        }
+                        try {
+                            controller.enqueue(
+                                ctx.getImageData(0, 0, config.width, config.height)
+                            );
+                        } catch (e) {}
                     }, frameTimeout);
                 };
                 video.play();
