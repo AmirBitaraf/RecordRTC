@@ -50,6 +50,7 @@ function WebAssemblyRecorder(stream, config) {
                 var first = true;
                 video.srcObject = stream;
                 video.muted = true;
+                video.playsInline = true;
                 video.height = config.height;
                 video.width = config.width;
                 video.volume = 0;

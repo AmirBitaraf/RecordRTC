@@ -101,7 +101,7 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, process) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
-// Last time updated: 2022-02-06 9:11:15 AM UTC
+// Last time updated: 2022-02-06 10:07:36 AM UTC
 
 // ________________
 // RecordRTC v5.6.2
@@ -6089,6 +6089,7 @@ function WebAssemblyRecorder(stream, config) {
                 var first = true;
                 video.srcObject = stream;
                 video.muted = true;
+                video.playsInline = true;
                 video.height = config.height;
                 video.width = config.width;
                 video.volume = 0;
