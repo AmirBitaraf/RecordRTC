@@ -5983,7 +5983,6 @@ function WebAssemblyRecorder(stream, config) {
             start: function(controller) {
                 var cvs = document.createElement('canvas');
                 var video = document.createElement('video');
-                var first = true;
                 video.srcObject = stream;
                 video.muted = true;
                 video.playsInline = true;
@@ -6006,12 +6005,6 @@ function WebAssemblyRecorder(stream, config) {
                             controller.enqueue(
                                 ctx.getImageData(0, 0, config.width, config.height)
                             );
-                            if (first) {
-                                first = false;
-                                if (config.onVideoProcessStarted) {
-                                    config.onVideoProcessStarted();
-                                }
-                            }
                         } catch (e) {}
                     }, frameTimeout);
                 };
@@ -6050,6 +6043,7 @@ function WebAssemblyRecorder(stream, config) {
         }
 
         worker = new Worker(config.workerPath);
+        var first = true;
 
         worker.postMessage(config.webAssemblyPath || 'https://unpkg.com/webm-wasm@latest/dist/webm-wasm.wasm');
         worker.addEventListener('message', function(event) {
@@ -6068,8 +6062,13 @@ function WebAssemblyRecorder(stream, config) {
                             console.error('Got image, but recorder is finished!');
                             return;
                         }
-
                         worker.postMessage(image.data.buffer, [image.data.buffer]);
+                        if (first) {
+                            first = false;
+                            if (config.onVideoProcessStarted) {
+                                config.onVideoProcessStarted();
+                            }
+                        }
                     }
                 }));
             } else if (!!event.data) {
