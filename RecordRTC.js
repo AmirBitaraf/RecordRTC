@@ -6001,18 +6001,17 @@ function WebAssemblyRecorder(stream, config) {
                             controller.close();
                         }
 
-                        if (first) {
-                            first = false;
-                            if (config.onVideoProcessStarted) {
-                                config.onVideoProcessStarted();
-                            }
-                        }
-
                         ctx.drawImage(video, 0, 0);
                         try {
                             controller.enqueue(
                                 ctx.getImageData(0, 0, config.width, config.height)
                             );
+                            if (first) {
+                                first = false;
+                                if (config.onVideoProcessStarted) {
+                                    config.onVideoProcessStarted();
+                                }
+                            }
                         } catch (e) {}
                     }, frameTimeout);
                 };
